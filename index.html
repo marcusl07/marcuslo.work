@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcus Lo Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --text-light: #666;
+            --accent: #2563eb;
+            --border: #e5e5e5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            font-size: 16px;
+        }
+
+        .container {
+            width: 66.67%;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            padding: 19px 0;
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 100;
+        }
+
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .header-content::after {
+            content: '';
+            position: absolute;
+            bottom: -19px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border);
+        }
+
+
+        .logo {
+            font-size: 19.2px;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .logo:hover {
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            flex-shrink: 0;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            min-height: 90vh;
+            padding: 120px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 60px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+            line-height: 1.28;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+
+        .uni-badge {
+            display: inline-block;
+            padding: 0.01em 0.28em;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #2b7ed6 0%, #1d4ed8 100%);
+            box-shadow: 0 6px 18px rgba(29,78,216,0.12);
+        }
+
+        .uni-badge .uni-text {
+            color: #ffd400;
+            font-weight: 700;
+            line-height: 1;
+            text-shadow: none;
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        @media (max-width: 640px) {
+            .uni-badge { padding: 0.08em 0.4em; border-radius: 10px; }
+        }
+
+        @media (max-width: 420px) {
+            .container { width: 100%; padding: 0 12px; }
+            .hero { padding: 40px 0; }
+            h1 { font-size: 60px; line-height: 1.28; }
+            .uni-badge { padding: 0 0.06em; border-radius: 6px; }
+            
+            nav {
+                gap: 16px;
+            }
+            
+            nav a {
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            nav {
+                gap: 12px;
+            }
+            
+            nav a {
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            nav {
+                gap: 8px;
+            }
+            
+            nav a {
+                font-size: 12px;
+            }
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .skills {
+            margin-top: 48px;
+        }
+
+        .skills-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        section {
+            padding: 60px 0 100px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        #projects {
+            border-bottom: none;
+        }
+
+        #contact {
+            background: #f2f5f7;
+            margin: 0 calc(-50vw + 50%);
+            padding: 80px calc(50vw - 33.33vw);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2 {
+            font-size: 36.75px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .section-icon,
+        em.section-icon {
+            font-size: 0.92em;
+            vertical-align: middle;
+            margin-right: 10px;
+            color: var(--accent);
+            position: relative;
+            top: -0.08em;
+        }
+
+        .about-content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text);
+            max-width: 600px;
+        }
+
+        .about-content p {
+            margin-bottom: 24px;
+        }
+
+        .project {
+            margin-bottom: 56px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .project:nth-child(2) { animation-delay: 0.1s; }
+        .project:nth-child(3) { animation-delay: 0.2s; }
+        .project:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .project-description {
+            color: var(--text-light);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .project-links a {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+            margin-right: 20px;
+            position: relative;
+            transition: opacity 0.2s;
+        }
+
+        .project-links a:hover {
+            opacity: 0.7;
+        }
+
+        .project-links a::after {
+            content: '→';
+            margin-left: 6px;
+            transition: margin-left 0.2s;
+        }
+
+        .project-links a:hover::after {
+            margin-left: 10px;
+        }
+
+        .subtitle-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 20px;
+            position: relative;
+            transition: opacity 0.2s, margin-left 0.2s;
+        }
+
+        .subtitle-link::after {
+            content: '→';
+            margin-left: 6px;
+            transition: margin-left 0.2s;
+        }
+
+        .subtitle-link:hover {
+            opacity: 0.8;
+        }
+
+        .subtitle-link:hover::after {
+            margin-left: 10px;
+        }
+
+        .contact-content {
+            font-size: 20px;
+            line-height: 1.8;
+            max-width: 480px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            margin-bottom: 24px;
+            color: var(--text-light);
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 72px;
+            margin-top: 48px;
+            justify-content: center;
+        }
+
+        .contact-links a {
+            color: var(--accent);
+            text-decoration: none;
+            padding: 16px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+        }
+
+        .contact-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        .contact-links i,
+        .contact-links em,
+        .contact-links .fa {
+            font-size: 4.5rem;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+
+        .contact-links a:hover i,
+        .contact-links a:hover em,
+        .contact-links a:hover .fa {
+            color: #1d4ed8;
+            transform: scale(1.15);
+        }
+
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: 48px 0 32px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .about-content,
+            .contact-content {
+                font-size: 16px;
+            }
+
+            .contact-links {
+                gap: 32px;
+            }
+
+            .contact-links a {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <a href="#top" class="logo">Marcus Lo</a>
+                <nav>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div id="top" class="hero">
+            <h1>I'm Marcus Lo,<br>a software engineering major<br>at <span class="uni-badge"><span class="uni-text">UC Irvine</span></span></h1>
+            <p class="subtitle"><a class="subtitle-link" href="Marcus_Lo.pdf" target="_blank" rel="noopener">View My Resume</a></p>
+        </div>
+
+        <section id="projects">
+            <h2><em class="fas fa-code section-icon" aria-hidden="true"></em>Projects</h2>
+            
+            <div class="project">
+                <h3 class="project-title">Curtain Call Alarm Clock</h3>
+                <p class="project-description">SwiftUI alarm app that pairs with an Arduino Nano curtain motor over BLE. Built asynchronous device discovery and a redundant signal queue so the curtains open the moment the alarm fires, while cutting idle power draw by 90% with a low-energy HC-08 handshake.</p>
+                <div class="project-links">
+                    <a href="https://github.com/marcusl07/Curtain-Call" target="_blank" rel="noopener">View Repo</a>
+                </div>
+            </div>
+
+            <div class="project">
+                <h3 class="project-title">Touch Sensitive Electric Piano</h3>
+                <p class="project-description">Realtime MIDI instrument built with Arduino-based capacitive sensors feeding Python and C++ apps. Integrated FluidSynth rendering, custom serial messaging, and cross-platform MIDI I/O so keystrokes stream to synthesized audio with reliable latency.</p>
+                <div class="project-links">
+                    <a href="https://github.com/asdfgasdfgasdfg/pianojon" target="_blank" rel="noopener">View Repo</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2><em class="fa-regular fa-handshake section-icon" aria-hidden="true"></em>Contact</h2>
+            <div class="contact-content">
+                <p>I'm looking for internships and opportunities to collaborate. Feel free to reach out and say hi!</p>
+                <div class="contact-links">
+                    <a href="mailto:marcuslo7773@gmail.com" target="_blank" aria-label="Email Marcus Lo">
+                        <em class="fas fa-envelope" aria-hidden="true"></em>
+                    </a>
+                    <a href="https://github.com/marcusl07" target="_blank" aria-label="Marcus Lo on GitHub">
+                        <em class="fab fa-github" aria-hidden="true"></em>
+                    </a>
+                    <a href="https://linkedin.com/in/marcusl07" target="_blank" aria-label="Marcus Lo on LinkedIn">
+                        <em class="fab fa-linkedin" aria-hidden="true"></em>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Marcus Lo</p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const header = document.querySelector('header');
+                    const headerHeight = header ? header.offsetHeight : 0;
+                    let targetPosition;
+                    
+                    // Special handling for Projects: align header divider with hero/projects divider
+                    if (this.getAttribute('href') === '#projects') {
+                        const hero = document.querySelector('.hero');
+                        if (hero) {
+                            // Scroll so header bottom aligns with hero bottom (where the divider is)
+                            targetPosition = hero.offsetTop + hero.offsetHeight - headerHeight;
+                        } else {
+                            targetPosition = target.offsetTop - headerHeight - 20;
+                        }
+                    } else if (this.getAttribute('href') === '#contact') {
+                        // For Contact: align header divider with top of grey contact section
+                        targetPosition = target.offsetTop - headerHeight;
+                    } else {
+                        // For other links, use standard offset
+                        targetPosition = target.offsetTop - headerHeight - 20;
+                    }
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.color = 'var(--accent)';
+                }
+            });
+        });
+
+        const interactiveElements = document.querySelectorAll('a, button');
+
+        (function enforceFourLineHeading() {
+            const h1 = document.querySelector('.hero h1');
+            const container = document.querySelector('.container');
+            const hero = document.querySelector('.hero');
+
+            if (!h1 || !container || !hero) return;
+
+            const origContainerPadding = getComputedStyle(container).paddingLeft;
+            const origHeroPaddingTop = getComputedStyle(hero).paddingTop;
+            const origHeroPaddingBottom = getComputedStyle(hero).paddingBottom;
+
+            const px = v => parseFloat(v.replace('px','')) || 0;
+
+            const containerPadPx = px(origContainerPadding);
+            let currentContainerPad = containerPadPx;
+            let currentHeroPadTop = px(origHeroPaddingTop);
+            let currentHeroPadBottom = px(origHeroPaddingBottom);
+
+            const MIN_CONTAINER_PAD = 6;
+            const MIN_HERO_PAD = 20;
+
+            const STEP_CONTAINER = 6;
+            const STEP_HERO = 12;
+
+            function lineCount(el) {
+                const style = getComputedStyle(el);
+                const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.28;
+                return Math.round(el.getBoundingClientRect().height / lineHeight);
+            }
+
+            function adjust() {
+                container.style.paddingLeft = container.style.paddingRight = origContainerPadding;
+                hero.style.paddingTop = origHeroPaddingTop;
+                hero.style.paddingBottom = origHeroPaddingBottom;
+
+                let lines = lineCount(h1);
+                if (lines <= 4) return;
+
+                currentContainerPad = containerPadPx;
+                currentHeroPadTop = px(origHeroPaddingTop);
+                currentHeroPadBottom = px(origHeroPaddingBottom);
+
+                while (lines > 4 && (currentContainerPad > MIN_CONTAINER_PAD || (currentHeroPadTop + currentHeroPadBottom) / 2 > MIN_HERO_PAD)) {
+                    if (currentContainerPad > MIN_CONTAINER_PAD) {
+                        currentContainerPad = Math.max(MIN_CONTAINER_PAD, currentContainerPad - STEP_CONTAINER);
+                        container.style.paddingLeft = container.style.paddingRight = currentContainerPad + 'px';
+                    }
+
+                    const heroAvg = (currentHeroPadTop + currentHeroPadBottom) / 2;
+                    if (heroAvg > MIN_HERO_PAD) {
+                        currentHeroPadTop = Math.max(MIN_HERO_PAD / 2, currentHeroPadTop - STEP_HERO / 2);
+                        currentHeroPadBottom = Math.max(MIN_HERO_PAD / 2, currentHeroPadBottom - STEP_HERO / 2);
+                        hero.style.paddingTop = currentHeroPadTop + 'px';
+                        hero.style.paddingBottom = currentHeroPadBottom + 'px';
+                    }
+
+                    lines = lineCount(h1);
+                    if (currentContainerPad === MIN_CONTAINER_PAD && (currentHeroPadTop + currentHeroPadBottom) / 2 <= MIN_HERO_PAD) break;
+                }
+            }
+
+            let rafId = null;
+            function onResize() {
+                if (rafId) cancelAnimationFrame(rafId);
+                rafId = requestAnimationFrame(() => {
+                    adjust();
+                });
+            }
+
+            window.addEventListener('resize', onResize, { passive: true });
+            document.fonts && document.fonts.ready.then(onResize).catch(() => {});
+
+            onResize();
+        })();
+    </script>
+</body>
+</html>
