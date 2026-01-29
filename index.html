@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,8 @@
             --accent: #2563eb;
             --border: #e5e5e5;
         }
+
+
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -116,7 +119,7 @@
             padding: 0.01em 0.28em;
             border-radius: 8px;
             background: linear-gradient(135deg, #2b7ed6 0%, #1d4ed8 100%);
-            box-shadow: 0 6px 18px rgba(29,78,216,0.12);
+            box-shadow: 0 6px 18px rgba(29, 78, 216, 0.12);
         }
 
         .uni-badge .uni-text {
@@ -128,42 +131,62 @@
             font-size: inherit;
         }
 
-        @media (max-width: 640px) {
-            .uni-badge { padding: 0.08em 0.4em; border-radius: 10px; }
+        /* Mobile Improvements */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 48px;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .container {
+                width: 100%;
+                /* Safe area aware padding for notches */
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+            }
         }
 
-        @media (max-width: 420px) {
-            .container { width: 100%; padding: 0 12px; }
-            .hero { padding: 40px 0; }
-            h1 { font-size: 60px; line-height: 1.28; }
-            .uni-badge { padding: 0 0.06em; border-radius: 6px; }
-            
-            nav {
-                gap: 16px;
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 36px;
+                /* Better fit for small screens */
             }
-            
-            nav a {
-                font-size: 14px;
+
+            h2 {
+                font-size: 28px;
             }
-        }
-        
-        @media (max-width: 360px) {
-            nav {
-                gap: 12px;
+
+            .hero {
+                min-height: auto;
+                padding: 100px 0 60px 0;
+                /* More balanced top/bottom padding */
             }
-            
-            nav a {
-                font-size: 13px;
+
+            /* Improve Navigation Touch Targets */
+            header {
+                padding: 16px 0;
             }
-        }
-        
-        @media (max-width: 320px) {
+
             nav {
                 gap: 8px;
+                /* Reduce gap, rely on padding for spacing */
             }
-            
+
             nav a {
-                font-size: 12px;
+                display: inline-block;
+                padding: 10px;
+                /* Min 44px height accessible target */
+                font-size: 16px;
+                /* Prevent iOS zoom */
+            }
+
+            .project-links a {
+                padding: 10px 10px 10px 0;
+                /* Improve touch targets for project links too */
             }
         }
 
@@ -262,9 +285,17 @@
             animation: fadeInUp 0.6s forwards;
         }
 
-        .project:nth-child(2) { animation-delay: 0.1s; }
-        .project:nth-child(3) { animation-delay: 0.2s; }
-        .project:nth-child(4) { animation-delay: 0.3s; }
+        .project:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .project:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .project:nth-child(4) {
+            animation-delay: 0.3s;
+        }
 
         @keyframes fadeInUp {
             to {
@@ -390,11 +421,75 @@
             font-size: 14px;
         }
 
+        @media (max-width: 380px) {
+            h1 {
+                font-size: 30px;
+                /* Force fit for "engineering major" */
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 13px;
+                padding: 8px;
+                /* Slightly tighter touch targets */
+            }
+        }
+
+        @media (max-width: 320px) {
+            h1 {
+                font-size: 28px;
+                /* Absolute safe fallback */
+            }
+
+            nav {
+                gap: 4px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+        }
+
+        /* Smart Wrap Logic */
+        .mobile-only {
+            display: none;
+        }
+
+        .keep-together {
+            display: inline-block;
+            /* visual coherence */
+            white-space: nowrap;
+            /* prevents internal breaking */
+        }
+
+        @media (max-width: 480px) {
+            .mobile-only {
+                display: block;
+                /* Force new line on mobile */
+                margin-bottom: 0;
+            }
+
+            /* If mobile-only is a BR tag, display: block/inline works as expected */
+            br.mobile-only {
+                display: block !important;
+            }
+
+            h1.hero-title {
+                font-size: 32px;
+                /* Readable mobile size */
+                letter-spacing: -0.02em;
+            }
+        }
+
+
         @media (max-width: 640px) {
             header {
                 padding: 48px 0 32px;
             }
-            
+
             .subtitle {
                 font-size: 16px;
             }
@@ -418,6 +513,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -431,16 +527,23 @@
         </header>
 
         <div id="top" class="hero">
-            <h1>I'm Marcus Lo,<br>a software engineering major<br>at <span class="uni-badge"><span class="uni-text">UC Irvine</span></span></h1>
-            <p class="subtitle"><a class="subtitle-link" href="Marcus_Lo.pdf" target="_blank" rel="noopener">View My Resume</a></p>
+            <h1 class="hero-title">I'm Marcus Lo,<br>a software<br class="mobile-only"> <span
+                    class="keep-together">engineering major</span><br>at <span class="uni-badge"><span
+                        class="uni-text">UC
+                        Irvine</span></span></h1>
+            Irvine</span></span></h1>
+            <p class="subtitle"><a class="subtitle-link" href="Marcus_Lo.pdf" target="_blank" rel="noopener">View My
+                    Resume</a></p>
         </div>
 
         <section id="projects">
             <h2><em class="fas fa-code section-icon" aria-hidden="true"></em>Projects</h2>
-            
+
             <div class="project">
                 <h3 class="project-title">Curtain Call Alarm Clock</h3>
-                <p class="project-description">SwiftUI alarm app that pairs with an Arduino Nano curtain motor over BLE. Built asynchronous device discovery and a redundant signal queue so the curtains open the moment the alarm fires, while cutting idle power draw by 90% with a low-energy HC-08 handshake.</p>
+                <p class="project-description">SwiftUI alarm app that pairs with an Arduino Nano curtain motor over BLE.
+                    Built asynchronous device discovery and a redundant signal queue so the curtains open the moment the
+                    alarm fires, while cutting idle power draw by 90% with a low-energy HC-08 handshake.</p>
                 <div class="project-links">
                     <a href="https://github.com/marcusl07/Curtain-Call" target="_blank" rel="noopener">View Repo</a>
                 </div>
@@ -448,7 +551,9 @@
 
             <div class="project">
                 <h3 class="project-title">Touch Sensitive Electric Piano</h3>
-                <p class="project-description">Realtime MIDI instrument built with Arduino-based capacitive sensors feeding Python and C++ apps. Integrated FluidSynth rendering, custom serial messaging, and cross-platform MIDI I/O so keystrokes stream to synthesized audio with reliable latency.</p>
+                <p class="project-description">Realtime MIDI instrument built with Arduino-based capacitive sensors
+                    feeding Python and C++ apps. Integrated FluidSynth rendering, custom serial messaging, and
+                    cross-platform MIDI I/O so keystrokes stream to synthesized audio with reliable latency.</p>
                 <div class="project-links">
                     <a href="https://github.com/asdfgasdfgasdfg/pianojon" target="_blank" rel="noopener">View Repo</a>
                 </div>
@@ -456,7 +561,10 @@
 
             <div class="project">
                 <h3 class="project-title">Canvas to Things</h3>
-                <p class="project-description">Python-based automation that bridges the Canvas LMS with Things 3 using GitHub Actions and SMTP. Engineered a stateful polling system with a redundant queuing mechanism to bypass the Things Cloud daily email limit, ensuring reliable task synchronization across multiple courses while running entirely serverless.</p>
+                <p class="project-description">Python-based automation that bridges the Canvas LMS with Things 3 using
+                    GitHub Actions and SMTP. Engineered a stateful polling system with a redundant queuing mechanism to
+                    bypass the Things Cloud daily email limit, ensuring reliable task synchronization across multiple
+                    courses while running entirely serverless.</p>
                 <div class="project-links">
                     <a href="https://github.com/marcusl07/canvas_to_things" target="_blank" rel="noopener">View Repo</a>
                 </div>
@@ -495,7 +603,7 @@
                     const header = document.querySelector('header');
                     const headerHeight = header ? header.offsetHeight : 0;
                     let targetPosition;
-                    
+
                     // Special handling for Projects: align header divider with hero/projects divider
                     if (this.getAttribute('href') === '#projects') {
                         const hero = document.querySelector('.hero');
@@ -512,7 +620,7 @@
                         // For other links, use standard offset
                         targetPosition = target.offsetTop - headerHeight - 20;
                     }
-                    
+
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
@@ -544,80 +652,12 @@
 
         const interactiveElements = document.querySelectorAll('a, button');
 
-        (function enforceFourLineHeading() {
-            const h1 = document.querySelector('.hero h1');
-            const container = document.querySelector('.container');
-            const hero = document.querySelector('.hero');
 
-            if (!h1 || !container || !hero) return;
 
-            const origContainerPadding = getComputedStyle(container).paddingLeft;
-            const origHeroPaddingTop = getComputedStyle(hero).paddingTop;
-            const origHeroPaddingBottom = getComputedStyle(hero).paddingBottom;
 
-            const px = v => parseFloat(v.replace('px','')) || 0;
 
-            const containerPadPx = px(origContainerPadding);
-            let currentContainerPad = containerPadPx;
-            let currentHeroPadTop = px(origHeroPaddingTop);
-            let currentHeroPadBottom = px(origHeroPaddingBottom);
 
-            const MIN_CONTAINER_PAD = 6;
-            const MIN_HERO_PAD = 20;
-
-            const STEP_CONTAINER = 6;
-            const STEP_HERO = 12;
-
-            function lineCount(el) {
-                const style = getComputedStyle(el);
-                const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.28;
-                return Math.round(el.getBoundingClientRect().height / lineHeight);
-            }
-
-            function adjust() {
-                container.style.paddingLeft = container.style.paddingRight = origContainerPadding;
-                hero.style.paddingTop = origHeroPaddingTop;
-                hero.style.paddingBottom = origHeroPaddingBottom;
-
-                let lines = lineCount(h1);
-                if (lines <= 4) return;
-
-                currentContainerPad = containerPadPx;
-                currentHeroPadTop = px(origHeroPaddingTop);
-                currentHeroPadBottom = px(origHeroPaddingBottom);
-
-                while (lines > 4 && (currentContainerPad > MIN_CONTAINER_PAD || (currentHeroPadTop + currentHeroPadBottom) / 2 > MIN_HERO_PAD)) {
-                    if (currentContainerPad > MIN_CONTAINER_PAD) {
-                        currentContainerPad = Math.max(MIN_CONTAINER_PAD, currentContainerPad - STEP_CONTAINER);
-                        container.style.paddingLeft = container.style.paddingRight = currentContainerPad + 'px';
-                    }
-
-                    const heroAvg = (currentHeroPadTop + currentHeroPadBottom) / 2;
-                    if (heroAvg > MIN_HERO_PAD) {
-                        currentHeroPadTop = Math.max(MIN_HERO_PAD / 2, currentHeroPadTop - STEP_HERO / 2);
-                        currentHeroPadBottom = Math.max(MIN_HERO_PAD / 2, currentHeroPadBottom - STEP_HERO / 2);
-                        hero.style.paddingTop = currentHeroPadTop + 'px';
-                        hero.style.paddingBottom = currentHeroPadBottom + 'px';
-                    }
-
-                    lines = lineCount(h1);
-                    if (currentContainerPad === MIN_CONTAINER_PAD && (currentHeroPadTop + currentHeroPadBottom) / 2 <= MIN_HERO_PAD) break;
-                }
-            }
-
-            let rafId = null;
-            function onResize() {
-                if (rafId) cancelAnimationFrame(rafId);
-                rafId = requestAnimationFrame(() => {
-                    adjust();
-                });
-            }
-
-            window.addEventListener('resize', onResize, { passive: true });
-            document.fonts && document.fonts.ready.then(onResize).catch(() => {});
-
-            onResize();
-        })();
     </script>
 </body>
+
 </html>
