@@ -44,6 +44,7 @@
         }
 
         header {
+            --header-padding-bottom: 19px;
             padding: 19px 0;
             position: sticky;
             top: 0;
@@ -62,7 +63,7 @@
         .header-content::after {
             content: '';
             position: absolute;
-            bottom: -19px;
+            bottom: calc(-1 * var(--header-padding-bottom));
             left: 0;
             right: 0;
             height: 1px;
@@ -174,6 +175,7 @@
 
             /* Improve Navigation Touch Targets */
             header {
+                --header-padding-bottom: 16px;
                 padding: 16px 0;
             }
 
@@ -493,6 +495,7 @@
 
         @media (max-width: 640px) {
             header {
+                --header-padding-bottom: 32px;
                 padding: 48px 0 32px;
             }
 
@@ -595,7 +598,7 @@
         </section>
 
         <footer>
-            <p>© 2025 Marcus Lo</p>
+            <p>© 2026 Marcus Lo</p>
         </footer>
     </div>
 
