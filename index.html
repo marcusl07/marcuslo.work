@@ -155,55 +155,162 @@
                 padding-left: max(20px, env(safe-area-inset-left));
                 padding-right: max(20px, env(safe-area-inset-right));
             }
+
+            .subtitle {
+                font-size: 16px;
+            }
         }
 
         @media (max-width: 480px) {
-            h1 {
-                font-size: 36px;
-                /* Better fit for small screens */
+            html {
+                scroll-behavior: smooth;
             }
 
-            h2 {
-                font-size: 28px;
-            }
-
-            .hero {
-                min-height: auto;
-                padding: 100px 0 60px 0;
-                /* More balanced top/bottom padding */
-            }
-
-            /* Improve Navigation Touch Targets */
             header {
-                --header-padding-bottom: 16px;
-                padding: 16px 0;
+                --header-padding-bottom: 12px;
+                padding: 12px 0;
+            }
+
+            .logo {
+                font-size: 17px;
             }
 
             nav {
-                gap: 8px;
-                /* Reduce gap, rely on padding for spacing */
+                gap: 18px;
             }
 
             nav a {
                 display: inline-block;
-                padding: 10px;
-                /* Min 44px height accessible target */
+                padding: 6px 0;
+                font-size: 14px;
+            }
+
+            .hero,
+            #projects,
+            #contact {
+                min-height: 100svh;
+                min-height: 100dvh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 16px 0 28px;
+            }
+
+            h1,
+            h1.hero-title {
+                font-size: clamp(30px, 8vw, 36px);
+                line-height: 1.12;
+                letter-spacing: -0.04em;
+                margin-bottom: 18px;
+            }
+
+            .uni-badge {
+                padding: 0.05em 0.24em;
+                border-radius: 6px;
+                box-shadow: 0 4px 12px rgba(29, 78, 216, 0.12);
+            }
+
+            .subtitle {
+                margin-top: 6px;
+            }
+
+            .subtitle-link {
                 font-size: 16px;
-                /* Prevent iOS zoom */
+            }
+
+            section {
+                padding: 28px 0;
+            }
+
+            h2 {
+                font-size: 22px;
+                margin-bottom: 18px;
+            }
+
+            .section-icon,
+            em.section-icon {
+                font-size: 0.82em;
+                margin-right: 8px;
+            }
+
+            #projects {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                padding-top: 24px;
+                padding-bottom: 24px;
+            }
+
+            .project {
+                margin-bottom: 0;
+                padding: 20px 18px;
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                background: #fff;
+                box-shadow: 0 10px 28px rgba(0, 0, 0, 0.04);
+                opacity: 1;
+                transform: none;
+                animation: none;
+            }
+
+            .project-title {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            .project-description {
+                font-size: 15px;
+                line-height: 1.55;
+                margin-bottom: 12px;
             }
 
             .project-links a {
-                padding: 10px 10px 10px 0;
-                /* Improve touch targets for project links too */
+                font-size: 13px;
+                margin-right: 0;
+                padding: 0;
             }
-        }
 
-        .subtitle {
-            color: var(--text-light);
-            font-size: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
+            #contact {
+                margin: 0 calc(-1 * max(20px, env(safe-area-inset-left)));
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+                padding-top: 32px;
+                padding-bottom: calc(32px + env(safe-area-inset-bottom));
+                background: #f2f5f7;
+            }
+
+            .contact-content {
+                max-width: 320px;
+            }
+
+            .contact-content p {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+
+            .contact-links {
+                gap: 18px;
+                margin-top: 24px;
+            }
+
+            .contact-links a {
+                width: 44px;
+                height: 44px;
+                padding: 0;
+            }
+
+            .contact-links i,
+            .contact-links em,
+            .contact-links .fa {
+                font-size: 1.6rem;
+            }
+
+            footer {
+                padding: 32px 0 40px;
+            }
         }
 
         .skills {
@@ -430,30 +537,18 @@
         }
 
         @media (max-width: 380px) {
-            h1 {
-                font-size: 30px;
-                /* Force fit for "engineering major" */
-            }
-
             nav {
-                gap: 12px;
+                gap: 16px;
             }
 
             nav a {
                 font-size: 13px;
-                padding: 8px;
-                /* Slightly tighter touch targets */
             }
         }
 
         @media (max-width: 320px) {
-            h1 {
-                font-size: 28px;
-                /* Absolute safe fallback */
-            }
-
             nav {
-                gap: 4px;
+                gap: 12px;
             }
 
             nav a {
@@ -484,12 +579,6 @@
             br.mobile-only {
                 display: block !important;
             }
-
-            h1.hero-title {
-                font-size: 32px;
-                /* Readable mobile size */
-                letter-spacing: -0.02em;
-            }
         }
 
 
@@ -497,10 +586,6 @@
             header {
                 --header-padding-bottom: 16px;
                 padding: 24px 0 16px;
-            }
-
-            .subtitle {
-                font-size: 16px;
             }
 
             section {
