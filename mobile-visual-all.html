@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mobile visual all</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #202124;
+      color: #f8f9fa;
+      font: 13px system-ui, -apple-system, Segoe UI, sans-serif;
+      overflow: auto;
+    }
+
+    .wrap {
+      display: flex;
+      gap: 18px;
+      padding: 20px;
+      align-items: flex-start;
+    }
+
+    .phone {
+      background: #111;
+      border: 1px solid #555;
+      border-radius: 24px;
+      padding: 12px 8px 8px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+      transform-origin: top left;
+    }
+
+    .bar {
+      text-align: center;
+      color: #ddd;
+      padding-bottom: 8px;
+      font-weight: 600;
+    }
+
+    iframe {
+      border: 0;
+      background: white;
+      display: block;
+    }
+
+    .small iframe {
+      width: 320px;
+      height: 568px;
+    }
+
+    .medium iframe {
+      width: 375px;
+      height: 812px;
+    }
+
+    .large iframe {
+      width: 430px;
+      height: 932px;
+    }
+
+    @media (max-width: 1200px) {
+      .wrap {
+        width: 1250px;
+        transform: scale(0.38);
+        transform-origin: top left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="phone small">
+      <div class="bar">320 x 568</div>
+      <iframe src="/index.html"></iframe>
+    </section>
+    <section class="phone medium">
+      <div class="bar">375 x 812</div>
+      <iframe src="/index.html"></iframe>
+    </section>
+    <section class="phone large">
+      <div class="bar">430 x 932</div>
+      <iframe src="/index.html"></iframe>
+    </section>
+  </main>
+</body>
+</html>
