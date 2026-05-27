@@ -221,6 +221,18 @@
             outline: none;
         }
 
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         .object {
             min-height: 560px;
             border: 1px solid var(--ink);
@@ -229,6 +241,10 @@
             box-shadow: 14px 14px 0 rgba(24, 24, 23, 0.08);
             position: relative;
             overflow: hidden;
+        }
+
+        .object.is-playing::before {
+            animation: speaker-signal 1.2s steps(2, end) infinite;
         }
 
         .object::before {
@@ -242,6 +258,12 @@
                 var(--panel);
         }
 
+        @keyframes speaker-signal {
+            50% {
+                background-position: 6px 6px;
+            }
+        }
+
         .object-face {
             position: absolute;
             inset: 294px 28px 28px;
@@ -251,6 +273,8 @@
         }
 
         .dial {
+            appearance: none;
+            padding: 0;
             width: 74px;
             height: 74px;
             border: 1px solid var(--ink);
@@ -260,6 +284,7 @@
                 conic-gradient(from -32deg, var(--red) 0 18deg, transparent 18deg 360deg),
                 var(--panel);
             position: relative;
+            cursor: pointer;
         }
 
         .dial::after {
@@ -271,6 +296,22 @@
             height: 20px;
             background: var(--ink);
             transform: translateX(-50%);
+        }
+
+        .dial:hover,
+        .dial:focus-visible {
+            outline: 2px solid var(--red);
+            outline-offset: 4px;
+        }
+
+        .object.is-playing .dial {
+            animation: dial-turn 7.5s linear infinite;
+        }
+
+        @keyframes dial-turn {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .readout {
@@ -303,29 +344,45 @@
             border: 1px solid var(--ink);
         }
 
-        .color-tabs span {
+        .color-tabs button {
+            appearance: none;
             height: 18px;
+            margin: 0;
+            padding: 0;
             border-right: 1px solid var(--ink);
+            border-top: 0;
+            border-bottom: 0;
+            border-left: 0;
+            cursor: pointer;
         }
 
-        .color-tabs span:last-child {
+        .color-tabs button:last-child {
             border-right: 0;
         }
 
-        .color-tabs span:nth-child(1) {
+        .color-tabs button:nth-child(1) {
             background: var(--red);
         }
 
-        .color-tabs span:nth-child(2) {
+        .color-tabs button:nth-child(2) {
             background: var(--yellow);
         }
 
-        .color-tabs span:nth-child(3) {
+        .color-tabs button:nth-child(3) {
             background: var(--green);
         }
 
-        .color-tabs span:nth-child(4) {
+        .color-tabs button:nth-child(4) {
             background: var(--blue);
+        }
+
+        .color-tabs button:hover,
+        .color-tabs button:focus-visible {
+            filter: brightness(0.9);
+            outline: 2px solid var(--ink);
+            outline-offset: 3px;
+            position: relative;
+            z-index: 1;
         }
 
         .section {
@@ -704,17 +761,32 @@
                 </div>
             </div>
 
-            <div class="object" aria-label="Braun radio inspired portfolio control panel">
+            <div class="object" data-radio aria-label="Braun radio inspired portfolio music player">
                 <div class="object-face">
-                    <div class="dial" aria-hidden="true"></div>
-                    <div class="readout" aria-hidden="true">
-                        <div class="readout-row"><span>MODE</span><span>Portfolio</span></div>
-                        <div class="readout-row"><span>FOCUS</span><span>Automation</span></div>
-                        <div class="readout-row"><span>BASE</span><span>Irvine</span></div>
-                        <div class="readout-row"><span>STATE</span><span>Available</span></div>
+                    <button class="dial" type="button" data-radio-toggle aria-pressed="false">
+                        <span class="sr-only">Play or pause radio song</span>
+                    </button>
+                    <div class="readout" aria-live="polite">
+                        <div class="readout-row"><span>MODE</span><span data-radio-mode>Audio</span></div>
+                        <div class="readout-row"><span>TRACK</span><span data-radio-track>Quiet Loop 01</span></div>
+                        <div class="readout-row"><span>TIME</span><span data-radio-time>00:00</span></div>
+                        <div class="readout-row"><span>STATE</span><span data-radio-state>Stopped</span></div>
                     </div>
                 </div>
-                <div class="color-tabs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+                <div class="color-tabs" aria-label="Radio song controls">
+                    <button type="button" data-radio-command="restart">
+                        <span class="sr-only">Restart song</span>
+                    </button>
+                    <button type="button" data-radio-command="back">
+                        <span class="sr-only">Skip backward</span>
+                    </button>
+                    <button type="button" data-radio-command="forward">
+                        <span class="sr-only">Skip forward</span>
+                    </button>
+                    <button type="button" data-radio-command="mute" aria-pressed="false">
+                        <span class="sr-only">Mute song</span>
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -822,6 +894,170 @@
             <span>2026</span>
         </footer>
     </main>
+    <script>
+        (() => {
+            const radio = document.querySelector("[data-radio]");
+            if (!radio) {
+                return;
+            }
+
+            const toggle = radio.querySelector("[data-radio-toggle]");
+            const stateText = radio.querySelector("[data-radio-state]");
+            const timeText = radio.querySelector("[data-radio-time]");
+            const muteButton = radio.querySelector('[data-radio-command="mute"]');
+            const notes = [
+                ["E4", 1], ["G4", 1], ["A4", 2], ["B4", 1],
+                ["A4", 1], ["G4", 2], ["E4", 1], ["D4", 1],
+                ["E4", 2], ["G4", 1], ["A4", 1], ["E5", 2],
+                ["D5", 1], ["B4", 1], ["A4", 2], ["REST", 1]
+            ];
+            const frequencies = {
+                D4: 293.66,
+                E4: 329.63,
+                G4: 392.00,
+                A4: 440.00,
+                B4: 493.88,
+                D5: 587.33,
+                E5: 659.25
+            };
+            const beatSeconds = 0.34;
+
+            let audioContext;
+            let masterGain;
+            let timer;
+            let step = 0;
+            let elapsedBeats = 0;
+            let playing = false;
+            let muted = false;
+
+            const formatTime = (seconds) => {
+                const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
+                const secs = String(Math.floor(seconds % 60)).padStart(2, "0");
+                return `${mins}:${secs}`;
+            };
+
+            const updateReadout = () => {
+                timeText.textContent = formatTime(elapsedBeats * beatSeconds);
+                stateText.textContent = muted ? "Muted" : (playing ? "Playing" : "Stopped");
+                toggle.setAttribute("aria-pressed", String(playing));
+                muteButton.setAttribute("aria-pressed", String(muted));
+                radio.classList.toggle("is-playing", playing && !muted);
+            };
+
+            const ensureAudio = () => {
+                if (audioContext) {
+                    return;
+                }
+
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                masterGain = audioContext.createGain();
+                masterGain.gain.value = muted ? 0 : 0.14;
+                masterGain.connect(audioContext.destination);
+            };
+
+            const playNote = (noteName, beats) => {
+                ensureAudio();
+                if (noteName === "REST") {
+                    return;
+                }
+
+                const now = audioContext.currentTime;
+                const oscillator = audioContext.createOscillator();
+                const envelope = audioContext.createGain();
+
+                oscillator.type = "triangle";
+                oscillator.frequency.value = frequencies[noteName];
+                envelope.gain.setValueAtTime(0, now);
+                envelope.gain.linearRampToValueAtTime(0.45, now + 0.015);
+                envelope.gain.exponentialRampToValueAtTime(0.001, now + Math.max(0.08, beats * beatSeconds - 0.03));
+
+                oscillator.connect(envelope);
+                envelope.connect(masterGain);
+                oscillator.start(now);
+                oscillator.stop(now + beats * beatSeconds);
+            };
+
+            const tick = () => {
+                const [noteName, beats] = notes[step];
+                playNote(noteName, beats);
+                elapsedBeats += beats;
+                step = (step + 1) % notes.length;
+
+                if (step === 0) {
+                    elapsedBeats = 0;
+                }
+
+                updateReadout();
+                timer = window.setTimeout(tick, beats * beatSeconds * 1000);
+            };
+
+            const start = async () => {
+                ensureAudio();
+                await audioContext.resume();
+                if (playing) {
+                    return;
+                }
+
+                playing = true;
+                tick();
+            };
+
+            const stop = () => {
+                playing = false;
+                window.clearTimeout(timer);
+                updateReadout();
+            };
+
+            const restart = () => {
+                step = 0;
+                elapsedBeats = 0;
+                updateReadout();
+                if (playing) {
+                    window.clearTimeout(timer);
+                    tick();
+                }
+            };
+
+            const skip = (amount) => {
+                const total = notes.length;
+                step = (step + amount + total) % total;
+                elapsedBeats = notes.slice(0, step).reduce((sum, note) => sum + note[1], 0);
+                updateReadout();
+                if (playing) {
+                    window.clearTimeout(timer);
+                    tick();
+                }
+            };
+
+            toggle.addEventListener("click", () => {
+                if (playing) {
+                    stop();
+                } else {
+                    start();
+                }
+            });
+
+            radio.querySelectorAll("[data-radio-command]").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const command = button.getAttribute("data-radio-command");
+                    if (command === "restart") {
+                        restart();
+                    } else if (command === "back") {
+                        skip(-4);
+                    } else if (command === "forward") {
+                        skip(4);
+                    } else if (command === "mute") {
+                        ensureAudio();
+                        muted = !muted;
+                        masterGain.gain.value = muted ? 0 : 0.14;
+                        updateReadout();
+                    }
+                });
+            });
+
+            updateReadout();
+        })();
+    </script>
 </body>
 
 </html>
