@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcus Lo | Rams-Inspired Portfolio</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32-v4.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16-v4.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-v4.png">
+    <style>
+        :root {
+            --paper: #f3f3f3;
+            --panel: #dfdfdc;
+            --panel-light: #fbfbfa;
+            --ink: #181817;
+            --muted: #62605a;
+            --quiet: #9a968c;
+            --line: #c4c4bf;
+            --line-strong: #83837d;
+            --red: #d94c3d;
+            --yellow: #e5b52f;
+            --green: #2e8f68;
+            --blue: #2c6f9f;
+            --radius: 3px;
+            --measure: min(1120px, calc(100vw - 40px));
+            --mono: "SFMono-Regular", "Roboto Mono", "IBM Plex Mono", Consolas, monospace;
+            --sans: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background: var(--paper);
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background:
+                linear-gradient(90deg, rgba(24, 24, 23, 0.035) 1px, transparent 1px) 0 0 / 48px 48px,
+                linear-gradient(180deg, rgba(24, 24, 23, 0.028) 1px, transparent 1px) 0 0 / 48px 48px,
+                var(--paper);
+            font-family: var(--sans);
+            font-size: 16px;
+            line-height: 1.55;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .site-shell {
+            width: var(--measure);
+            margin: 0 auto;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            border-bottom: 1px solid var(--line-strong);
+            background: rgba(243, 243, 243, 0.94);
+            backdrop-filter: blur(10px);
+        }
+
+        .topbar-inner {
+            width: var(--measure);
+            min-height: 64px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 44px;
+            height: 24px;
+            border: 1px solid var(--ink);
+            border-radius: 2px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            overflow: hidden;
+            background: var(--panel-light);
+        }
+
+        .brand-mark span:nth-child(1) {
+            background: var(--red);
+        }
+
+        .brand-mark span:nth-child(2) {
+            background: var(--yellow);
+        }
+
+        .brand-mark span:nth-child(3) {
+            background: var(--blue);
+        }
+
+        .brand-name {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .brand-meta {
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav a {
+            border: 1px solid transparent;
+            padding: 8px 10px;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav a:hover,
+        .nav a:focus-visible {
+            border-color: var(--ink);
+            color: var(--ink);
+            outline: none;
+        }
+
+        .hero {
+            min-height: calc(100svh - 64px);
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+            gap: 64px;
+            align-items: center;
+            padding: 72px 0 56px;
+            border-bottom: 1px solid var(--line-strong);
+        }
+
+        .eyebrow {
+            margin: 0 0 18px;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 720px;
+            margin: 0;
+            font-size: clamp(46px, 8vw, 104px);
+            font-weight: 500;
+            letter-spacing: 0;
+            line-height: 0.96;
+        }
+
+        .hero-copy {
+            max-width: 640px;
+            margin: 28px 0 0;
+            color: var(--muted);
+            font-size: clamp(18px, 2vw, 24px);
+            line-height: 1.35;
+        }
+
+        .hero-copy a {
+            color: var(--ink);
+            text-decoration-color: var(--red);
+            text-decoration-thickness: 2px;
+            text-underline-offset: 4px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 36px;
+        }
+
+        .key {
+            display: inline-flex;
+            min-height: 42px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--ink);
+            border-radius: var(--radius);
+            background: var(--panel-light);
+            color: var(--ink);
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            padding: 0 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: inset 0 -3px 0 rgba(24, 24, 23, 0.08);
+        }
+
+        .key:hover,
+        .key:focus-visible {
+            background: var(--ink);
+            color: var(--paper);
+            outline: none;
+        }
+
+        .object {
+            min-height: 560px;
+            border: 1px solid var(--ink);
+            border-radius: 6px;
+            background: var(--panel-light);
+            box-shadow: 14px 14px 0 rgba(24, 24, 23, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .object::before {
+            content: "";
+            position: absolute;
+            inset: 28px 28px auto;
+            height: 232px;
+            border: 1px solid var(--line-strong);
+            background:
+                radial-gradient(circle, rgba(24, 24, 23, 0.9) 1px, transparent 1.8px) 0 0 / 13px 13px,
+                var(--panel);
+        }
+
+        .object-face {
+            position: absolute;
+            inset: 294px 28px 28px;
+            display: grid;
+            grid-template-columns: 74px 1fr;
+            gap: 22px;
+        }
+
+        .dial {
+            width: 74px;
+            height: 74px;
+            border: 1px solid var(--ink);
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 50% 50%, var(--panel-light) 0 28%, transparent 29%),
+                conic-gradient(from -32deg, var(--red) 0 18deg, transparent 18deg 360deg),
+                var(--panel);
+            position: relative;
+        }
+
+        .dial::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 9px;
+            width: 1px;
+            height: 20px;
+            background: var(--ink);
+            transform: translateX(-50%);
+        }
+
+        .readout {
+            border-top: 1px solid var(--ink);
+            padding-top: 13px;
+        }
+
+        .readout-row {
+            display: grid;
+            grid-template-columns: 74px 1fr;
+            gap: 18px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--line);
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .readout-row span:first-child {
+            color: var(--muted);
+        }
+
+        .color-tabs {
+            position: absolute;
+            left: 28px;
+            right: 28px;
+            bottom: 28px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border: 1px solid var(--ink);
+        }
+
+        .color-tabs span {
+            height: 18px;
+            border-right: 1px solid var(--ink);
+        }
+
+        .color-tabs span:last-child {
+            border-right: 0;
+        }
+
+        .color-tabs span:nth-child(1) {
+            background: var(--red);
+        }
+
+        .color-tabs span:nth-child(2) {
+            background: var(--yellow);
+        }
+
+        .color-tabs span:nth-child(3) {
+            background: var(--green);
+        }
+
+        .color-tabs span:nth-child(4) {
+            background: var(--blue);
+        }
+
+        .section {
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr);
+            gap: 56px;
+            padding: 74px 0;
+            border-bottom: 1px solid var(--line-strong);
+        }
+
+        .section-label {
+            position: sticky;
+            top: 88px;
+            align-self: start;
+        }
+
+        .section-label p {
+            margin: 12px 0 0;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 12px;
+            line-height: 1.65;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1px;
+            border: 1px solid var(--ink);
+            background: var(--ink);
+        }
+
+        .about-cell {
+            min-height: 190px;
+            padding: 22px;
+            background: var(--panel-light);
+        }
+
+        .about-cell b {
+            display: block;
+            margin-bottom: 20px;
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .about-cell p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .projects {
+            display: grid;
+            gap: 18px;
+        }
+
+        .project {
+            display: grid;
+            grid-template-columns: 120px minmax(0, 1fr) auto;
+            gap: 28px;
+            align-items: start;
+            border: 1px solid var(--ink);
+            border-radius: var(--radius);
+            background: var(--panel-light);
+            padding: 22px;
+        }
+
+        .project-number {
+            display: grid;
+            grid-template-columns: 42px 1fr;
+            align-items: center;
+            gap: 12px;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+        }
+
+        .project-number::before {
+            content: "";
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--ink);
+            border-radius: 50%;
+            background:
+                linear-gradient(90deg, transparent 48%, var(--ink) 49% 51%, transparent 52%),
+                linear-gradient(180deg, transparent 48%, var(--ink) 49% 51%, transparent 52%),
+                var(--panel);
+        }
+
+        .project h3 {
+            margin: -2px 0 10px;
+            font-size: 26px;
+            font-weight: 500;
+            letter-spacing: 0;
+            line-height: 1.1;
+        }
+
+        .project p {
+            max-width: 680px;
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .project-link {
+            align-self: stretch;
+            min-width: 112px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px solid var(--line-strong);
+            padding-left: 22px;
+            color: var(--ink);
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .project-link:hover,
+        .project-link:focus-visible {
+            color: var(--red);
+            outline: none;
+        }
+
+        .contact-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 260px;
+            gap: 1px;
+            border: 1px solid var(--ink);
+            background: var(--ink);
+        }
+
+        .contact-copy,
+        .contact-links {
+            background: var(--panel-light);
+            padding: 28px;
+        }
+
+        .contact-copy p {
+            max-width: 580px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 20px;
+            line-height: 1.45;
+        }
+
+        .contact-links {
+            display: grid;
+            gap: 12px;
+        }
+
+        .contact-links a {
+            display: flex;
+            min-height: 48px;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--ink);
+            border-radius: var(--radius);
+            padding: 0 14px;
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .contact-links a::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        .contact-links a:hover,
+        .contact-links a:focus-visible {
+            background: var(--ink);
+            color: var(--paper);
+            outline: none;
+        }
+
+        footer {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            padding: 28px 0 44px;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 900px) {
+            .topbar-inner,
+            .hero,
+            .section,
+            footer {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar-inner {
+                gap: 10px;
+                padding: 12px 0;
+            }
+
+            .nav {
+                overflow-x: auto;
+            }
+
+            .hero {
+                min-height: auto;
+                gap: 36px;
+                padding-top: 48px;
+            }
+
+            .object {
+                min-height: 460px;
+            }
+
+            .object::before {
+                height: 176px;
+            }
+
+            .object-face {
+                inset: 238px 28px 28px;
+            }
+
+            .section-label {
+                position: static;
+            }
+
+            .about-grid,
+            .contact-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .project {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .project-link {
+                min-height: 46px;
+                border-left: 0;
+                border-top: 1px solid var(--line-strong);
+                justify-content: flex-start;
+                padding: 16px 0 0;
+            }
+        }
+
+        @media (max-width: 560px) {
+            :root {
+                --measure: min(100vw - 28px, 1120px);
+            }
+
+            .brand {
+                gap: 10px;
+            }
+
+            .brand-meta {
+                display: none;
+            }
+
+            .hero {
+                padding: 38px 0 42px;
+            }
+
+            h1 {
+                font-size: clamp(40px, 16vw, 68px);
+            }
+
+            .hero-copy,
+            .contact-copy p {
+                font-size: 18px;
+            }
+
+            .hero-actions {
+                display: grid;
+            }
+
+            .section {
+                padding: 52px 0;
+                gap: 24px;
+            }
+
+            .object {
+                min-height: 400px;
+                box-shadow: 8px 8px 0 rgba(24, 24, 23, 0.08);
+            }
+
+            .object::before {
+                inset: 18px 18px auto;
+                height: 144px;
+            }
+
+            .object-face {
+                inset: 190px 18px 18px;
+                grid-template-columns: 56px 1fr;
+                gap: 16px;
+            }
+
+            .dial {
+                width: 56px;
+                height: 56px;
+            }
+
+            .readout-row {
+                grid-template-columns: 54px 1fr;
+                gap: 12px;
+                font-size: 11px;
+            }
+
+            .color-tabs {
+                left: 18px;
+                right: 18px;
+                bottom: 18px;
+            }
+
+            .about-cell,
+            .project,
+            .contact-copy,
+            .contact-links {
+                padding: 18px;
+            }
+
+            .project h3 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="#top" aria-label="Marcus Lo home">
+                <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span class="brand-name">Marcus Lo</span>
+                <span class="brand-meta">SE Major / UCI / 2026</span>
+            </a>
+            <nav class="nav" aria-label="Primary navigation">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="../Marcus_Lo.pdf">Resume</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="top" class="site-shell">
+        <section class="hero" aria-labelledby="intro-title">
+            <div>
+                <p class="eyebrow">Portable portfolio system / release 01</p>
+                <h1 id="intro-title">Software, made quieter.</h1>
+                <p class="hero-copy">
+                    I am Marcus Lo, a software engineering major at
+                    <a href="https://uci.edu/" target="_blank" rel="noopener">UC Irvine</a>. I build personal tools,
+                    automations, and hardware-adjacent systems that remove friction instead of adding spectacle.
+                </p>
+                <div class="hero-actions" aria-label="Primary actions">
+                    <a class="key" href="#projects">Inspect Projects</a>
+                    <a class="key" href="../Marcus_Lo.pdf" target="_blank" rel="noopener">Open Resume</a>
+                </div>
+            </div>
+
+            <div class="object" aria-label="Braun radio inspired portfolio control panel">
+                <div class="object-face">
+                    <div class="dial" aria-hidden="true"></div>
+                    <div class="readout" aria-hidden="true">
+                        <div class="readout-row"><span>MODE</span><span>Portfolio</span></div>
+                        <div class="readout-row"><span>FOCUS</span><span>Automation</span></div>
+                        <div class="readout-row"><span>BASE</span><span>Irvine</span></div>
+                        <div class="readout-row"><span>STATE</span><span>Available</span></div>
+                    </div>
+                </div>
+                <div class="color-tabs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            </div>
+        </section>
+
+        <section id="about" class="section" aria-labelledby="about-title">
+            <div class="section-label">
+                <h2 id="about-title">About</h2>
+                <p>Measured structure, honest controls, durable information hierarchy.</p>
+            </div>
+            <div class="about-grid">
+                <article class="about-cell">
+                    <b>01 / Software</b>
+                    <p>Systems work, automation, stateful syncing, and practical interfaces that keep user intent
+                        visible.</p>
+                </article>
+                <article class="about-cell">
+                    <b>02 / Hardware</b>
+                    <p>Arduino, BLE, MIDI, sensors, and physical feedback loops where behavior matters more than
+                        ornament.</p>
+                </article>
+                <article class="about-cell">
+                    <b>03 / Aviation</b>
+                    <p>Flight training informs the same habits: clear checklists, low ambiguity, and careful execution.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section id="projects" class="section" aria-labelledby="projects-title">
+            <div class="section-label">
+                <h2 id="projects-title">Projects</h2>
+                <p>Four modules, ordered like a product family rather than a gallery.</p>
+            </div>
+            <div class="projects">
+                <article class="project">
+                    <div class="project-number">01</div>
+                    <div>
+                        <h3>The Vault</h3>
+                        <p>Python-powered personal wiki workflow that turns Obsidian captures into a maintained
+                            Zettelkasten-style knowledge graph. An LLM-assisted pipeline ingests raw notes, updates
+                            durable synthesis pages, creates atomic markdown entries, and preserves links so the wiki
+                            compounds instead of becoming a static archive.</p>
+                    </div>
+                    <a class="project-link" href="https://github.com/marcusl07/the-vault-public" target="_blank"
+                        rel="noopener">Repo</a>
+                </article>
+
+                <article class="project">
+                    <div class="project-number">02</div>
+                    <div>
+                        <h3>Canvas to Things</h3>
+                        <p>Python automation that bridges the Canvas LMS with Things 3 using GitHub Actions and SMTP.
+                            A stateful polling system with redundant queuing bypasses the Things Cloud daily email
+                            limit and keeps task synchronization reliable across multiple courses.</p>
+                    </div>
+                    <a class="project-link" href="https://github.com/marcusl07/canvas_to_things" target="_blank"
+                        rel="noopener">Repo</a>
+                </article>
+
+                <article class="project">
+                    <div class="project-number">03</div>
+                    <div>
+                        <h3>Touch Sensitive Electric Piano</h3>
+                        <p>Realtime MIDI instrument built with Arduino-based capacitive sensors feeding Python and C++
+                            apps. FluidSynth rendering, custom serial messaging, and cross-platform MIDI I/O let
+                            keystrokes stream to synthesized audio with reliable latency.</p>
+                    </div>
+                    <a class="project-link" href="https://github.com/asdfgasdfgasdfg/pianojon" target="_blank"
+                        rel="noopener">Repo</a>
+                </article>
+
+                <article class="project">
+                    <div class="project-number">04</div>
+                    <div>
+                        <h3>Curtain Call Alarm Clock</h3>
+                        <p>SwiftUI alarm app that pairs with an Arduino Nano curtain motor over BLE. Asynchronous device
+                            discovery and a redundant signal queue open the curtains when the alarm fires while lowering
+                            idle power draw with a low-energy HC-08 handshake.</p>
+                    </div>
+                    <a class="project-link" href="https://github.com/marcusl07/Curtain-Call" target="_blank"
+                        rel="noopener">Repo</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="section" aria-labelledby="contact-title">
+            <div class="section-label">
+                <h2 id="contact-title">Contact</h2>
+                <p>Simple routes, no hidden mechanism.</p>
+            </div>
+            <div class="contact-panel">
+                <div class="contact-copy">
+                    <p>I am looking for internships and opportunities to collaborate on useful software, durable
+                        systems, and tools that make repeated work feel lighter.</p>
+                </div>
+                <div class="contact-links" aria-label="Contact links">
+                    <a href="mailto:marcuslo7773@gmail.com">Email</a>
+                    <a href="https://github.com/marcusl07" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://linkedin.com/in/marcusl07" target="_blank" rel="noopener">LinkedIn</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span>Marcus Lo / Portfolio System</span>
+            <span>2026</span>
+        </footer>
+    </main>
+</body>
+
+</html>
